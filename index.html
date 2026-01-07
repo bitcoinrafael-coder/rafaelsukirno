@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rafael Sukirno - Maritime Professional Portfolio</title>
+    <meta name="description" content="Chief Engineer | Technical Manager | Marine Industry Consultant - 30+ years experience in maritime operations">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0f172a">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            min-height: 100vh;
+        }
+
+        .connection-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .online {
+            background: rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.5);
+            color: #22c55e;
+        }
+
+        .online .status-dot {
+            background: #22c55e;
+        }
+
+        .offline {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            color: #ef4444;
+        }
+
+        .offline .status-dot {
+            background: #ef4444;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+            border: 5px solid white;
+            overflow: hidden;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            color: #0f172a;
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .values {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .value-tag {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1em;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            transition: all 0.3s;
+        }
+
+        .value-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.5);
+        }
+
+        .contact-bar {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-radius: 15px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .contact-item:hover {
+            border-color: #3b82f6;
+            transform: translateX(5px);
+        }
+
+        .contact-item strong {
+            color: #3b82f6;
+            min-width: 90px;
+            font-size: 0.95em;
+        }
+
+        .section {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.95) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .section h2 {
+            color: #0f172a;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #3b82f6;
+            font-size: 2.2em;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Gallery Styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            height: 250px;
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            border: 2px dashed #3b82f6;
+        }
+
+        .placeholder-icon {
+            font-size: 64px;
+            opacity: 0.5;
+        }
+
+        .placeholder-text {
+            color: #3b82f6;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        /* Module Navigation */
+        .module-nav {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .module-btn {
+            padding: 12px 30px;
+            border: 2px solid #3b82f6;
+            background: white;
+            color: #3b82f6;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1em;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .module-btn:hover, .module-btn.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .module-section {
+            display: none;
+        }
+
+        .module-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Resource Cards */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .resource-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s;
+            cursor: pointer;
+            border: 2px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.3);
+            border-color: #3b82f6;
+        }
+
+        .resource-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .resource-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        .resource-title {
+            font-size: 1.4em;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+
+        .resource-desc {
+            color: #64748b;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+
+        .resource-meta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .meta-tag {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            color: #3b82f6;
+            font-weight: 700;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -48px;
+            top: 8px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+
+        .timeline-date {
+            color: #3b82f6;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .timeline-title {
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+            font-size: 1.2em;
+        }
+
+        .timeline-desc {
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-item {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 700;
+            color: #0f172a;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .skill-item:hover {
+            border-color: #3b82f6;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 3% auto;
+            padding: 40px;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 32px;
+            font-weight: bold;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f1f5f9;
+        }
+
+        .close-modal:hover {
+            color: white;
+            background: #ef4444;
+            transform: rotate(90deg);
+        }
+
+        /* Image Modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .image-modal-content {
+            position: relative;
+            margin: 2% auto;
+            max-width: 90%;
+            max-height: 90vh;
+            text-align: center;
+        }
+
+        .image-modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .image-modal-caption {
+            color: white;
+            font-size: 1.2em;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        .close-image {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 3001;
+            transition: all 0.3s;
+            background: rgba(239, 68, 68, 0.8);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-image:hover {
+            background: #ef4444;
+            transform: rotate(90deg);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            font-size: 0.95em;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .module-btn {
+                font-size: 0.9em;
+                padding: 10px 20px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Connection Status -->
+    <div class="connection-status" id="connectionStatus">
+        <div class="status-dot"></div>
+        <span id="statusText">Checking...</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="profile-img">
+                <img src="profile.jpg" alt="Rafael Sukirno" onerror="this.style.display='none'; this.parentElement.innerHTML='RS';">
+            </div>
+            <h1>RAFAEL SUKIRNO</h1>
+            <p class="subtitle">Chief Engineer | Technical Manager | Marine Industry Consultant</p>
+            <div class="values">
+                <span class="value-tag">✓ Loyal</span>
+                <span class="value-tag">✓ Competent</span>
+                <span class="value-tag">✓ Inspiring</span>
+            </div>
+        </header>
+
+        <!-- Contact Bar -->
+        <div class="contact-bar">
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <strong>📱 Mobile:</strong>
+                    <span>+62 813-3667-7024</span>
+                </div>
+                <div class="contact-item">
+                    <strong>📧 Email:</strong>
+                    <span>dhipdaelvira@gmail.com</span>
+                </div>
+                <div class="contact-item">
+                    <strong>📍 Location:</strong>
+                    <span>Surabaya, Indonesia</span>
+                </div>
+                <div class="contact-item">
+                    <strong>🎓 Certificate:</strong>
+                    <span>Ahli Teknik Tingkat 2</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photo Gallery Section -->
+        <section class="section">
+            <h2>📷 Professional Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openImage('profile.jpg', 'Rafael Sukirno - Chief Engineer')">
+                    <div class="gallery-placeholder">
+                        <div class="placeholder-icon">👤</div>
+                        <div class="placeholder-text">Foto Profil</div>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openImage('certificates.jpg', 'Ahli Teknik Tingkat 2 Certificate')">
+                    <div class="gallery-placeholder">
+                        <div class="placeholder-icon">🎓</div>
+                        <div class="placeholder-text">Sertifikat Ahli Teknik</div>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openImage('ship-1.jpg', 'MV Habco Pioneer - 30,000 DWT')">
+                    <div class="gallery-placeholder">
+                        <div class="placeholder-icon">🚢</div>
+                        <div class="placeholder-text">MV Habco Pioneer</div>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openImage('project-1.jpg', 'PMS Implementation Project')">
+                    <div class="gallery-placeholder">
+                        <div class="placeholder-icon">⚙️</div>
+                        <div class="placeholder-text">PMS Implementation</div>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openImage('drydock.jpg', 'Dry Docking Management')">
+                    <div class="gallery-placeholder">
+                        <div class="placeholder-icon">🔧</div>
+                        <div class="placeholder-text">Dry Docking Project</div>
+                    </div>
+                </div>
+                <div class="gallery-item" onclick="openImage('team.jpg', 'Technical Team Management')">
+                    <div class="gallery-placeholder">
+                        <div class="placeholder-icon">👥</div>
+                        <div class="placeholder-text">Team Management</div>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; color: #64748b; margin-top: 20px; font-size: 0.9em;">
+                💡 <strong>Upload foto:</strong> Simpan foto dengan nama yang sesuai (profile.jpg, certificates.jpg, ship-1.jpg, project-1.jpg, drydock.jpg, team.jpg) di repository GitHub Anda
+            </p>
+        </section>
+
+        <!-- Learning Modules Section -->
+        <section class="section">
+            <h2>📚 Learning Modules & Resources</h2>
+            
+            <div class="module-nav">
+                <button class="module-btn active" onclick="switchModule('videos')">
+                    🎥 Video Tutorials
+                </button>
+                <button class="module-btn" onclick="switchModule('documents')">
+                    📄 Documents & PDFs
+                </button>
+                <button class="module-btn" onclick="switchModule('journals')">
+                    📖 Journals & Articles
+                </button>
+                <button class="module-btn" onclick="switchModule('ebooks')">
+                    📚 E-Books
+                </button>
+                <button class="module-btn" onclick="switchModule('templates')">
+                    📊 Templates & Tools
+                </button>
+            </div>
+
+            <!-- Video Tutorials Module -->
+            <div id="videos" class="module-section active">
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">🎥</div>
+                        <div class="resource-title">PMS Implementation Guide</div>
+                        <div class="resource-desc">Panduan lengkap implementasi Planned Maintenance System di kapal commercial dan offshore vessels</div>
+                        <div class="resource-meta">
+                            <span class="meta-tag">Video HD</span>
+                            <span class="meta-tag">45 menit</span>
+                            <span class="meta-tag">Bahasa Indonesia</span>
+                        </div>
+                        <button class="action-btn">
+                            ▶️ Tonton Sekarang
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">🎬</div>
+                        <div class="resource-title">Dry Docking Management</div>
+                        <div class="resource-desc">Video case study lengkap tentang planning, execution, budgeting, dan quality control dry docking project</div>
+                        <div class="resource-meta">
+                            <span class="meta-tag">Video 4K</span>
+                            <span class="meta-tag">60 menit</span>
+                            <span class="meta-tag">English + Subtitle</span>
+                        </div>
+                        <button class="action-btn">
+                            ▶️ Tonton Sekarang
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">💻</div>
+                        <div class="resource-title">BassNet Software Tutorial</div>
+                        <div class="resource-desc">Demonstrasi lengkap penggunaan BassNet Management Software untuk PMS, Procurement, dan Fleet Management</div>
+                        <div class="resource-meta">
+                            <span class="meta-tag">Video Series</span>
+                            <span class="meta-tag">90 menit</span>
+                            <span class="meta-tag">9 Modules</span>
+                        </div>
+                        <button class="action-btn">
+                            ▶️ Tonton Sekarang
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">🎯</div>
+                        <div class="resource-title">Supply Chain Excellence</div>
+                        <div class="resource-desc">Video training tentang Supply Chain Management dengan Butterfly Concept untuk maritime operations</div>
+                        <div class="resource-meta">
+                            <span class="meta-tag">Masterclass</span>
+                            <span class="meta-tag">75 menit</span>
+                            <span class="meta-tag">Case Studies</span>
+                        </div>
+                        <button class="action-btn">
+                            ▶️ Tonton Sekarang
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents Module -->
+            <div id="documents" class="module-section">
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <div class="resource-icon">📄</div>
+                        <div class="resource-title">Supply Chain Management Guide</div>
+                        <div class="resource-desc">Dokumen komprehensif tentang Butterfly Concept dalam Supply Chain Management</div>
+                        <div class="resource-meta">
+                            <span class="meta-tag">PDF</span>
+                            <span class="meta-tag">45 halaman</span>
+                            <span class="meta-tag">2.8 MB</span>
+                        </div>
+                        <button class="action-btn">
+                            ⬇️ Download PDF
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">📋</div>
+                        <div class="resource-title">ISM Code Implementation</div>
+                        <div class="resource-desc">Panduan lengkap implementasi ISM Code dan Document Control Management System</div>
+                        <div class="resource-meta">
+                            <span class="meta-tag">Word Doc</span>
+                            <span class="meta-tag">52 halaman</span>
+                            <span class="meta-tag">3.5 MB</span>
+                        </div>
+                        <button class="action-btn">
+                            ⬇️ Download DOCX
+                        </button>
+                    </div>
+
+                    <div class="resource-card">
+                        <div class="resource-icon">🛡️</div>
+                        <div class="resource-title">HSSE Management Manual</div>
+                        <div class="resource-desc">Manual lengkap Health, Safety, Security, dan Environment untuk operasi maritime</div>
